@@ -1,1 +1,76 @@
-"# prelude" 
+# prelude
+
+_a base library for functional programming in [deno](http://deno.land/)_
+
+## Roadmap
+
+:warning:	WATCH OUT!
+
+- semver won't be enforced until v1.0.0
+- partial application and other tuple related functions won't be available until deno supports [typescript 4.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html)
+
+### Goals
+
+- provide [interfaces](https://github.com/kress95/prelude/blob/master/static-land.ts) corresponding [static-land spec](https://github.com/rpominov/static-land) type classes and factory functions for implementing its instances.
+- provide good replacement for libraries like [fp-ts](https://github.com/gcanti/fp-ts), [ramda](https://github.com/ramda/ramda), [hkts](https://github.com/pelotom/hkts) and [lodash](https://github.com/lodash/lodash)
+- provide interfaces for more [purescript](https://github.com/purescript/purescript) based type classes
+- provide some basic (primitives, Maybe, Either, etc...) instances for type classes
+
+### Non-Goals
+
+- break compatibility with static-land
+- provide every haskell/purescript equivalent type classes and instances
+
+## Documentation
+
+Is currently a work in progress and not a priority until instances for most primitive types are implemented.
+
+## Known limitations
+
+- every kind is limited to a single parameter (but kinds can yield kinds)
+- a useless expression is required to check type class instances:
+
+```ts
+(():
+  & Monoid<unknown[]>
+  & Setoid<unknown[]>
+  & Semigroup<unknown[]>
+  & Group<unknown[]>
+  & Functor<ArrayKind>
+  & Foldable<ArrayKind>
+  & Filterable<ArrayKind>
+  & Apply<ArrayKind>
+  & Applicative<ArrayKind>
+  & Chain<ArrayKind>
+  & Monad<ArrayKind> => ({
+  equals,
+  empty,
+  concat,
+  map,
+  reduce,
+  filter,
+  ap,
+  of,
+  chain,
+  join,
+  invert,
+}));
+```
+
+## Related work
+
+- [Encoding HKTs in typescript without declaration merging](https://gist.github.com/ENvironmentSet/1662a140f99381bc85fd6be51ecdcbb5)
+- inspired by [hkts](https://github.com/pelotom/hkts), [fp-ts](https://github.com/gcanti/fp-ts) and [purescript](https://github.com/purescript/purescript)
+
+## For Developers
+
+If you want to contribute to prelude:
+
+1. clone this repository
+2. make sure you have Deno installed
+3. install the `pre-commit` running:
+    - on windows: `.\scripts\hook` from the root of the repository
+    - on linux/unix-likes: `./scripts/hook` from the root of the repository
+4. run scripts from the root of the repository
+
+Thanks!
