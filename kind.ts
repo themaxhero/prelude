@@ -7,7 +7,7 @@ export default kind;
 
 export type _ = "_";
 
-export type $ = "$";
+type $ = "$";
 
 export type ap<T extends kind, A = unknown> = (T & { _: A })[$];
 
