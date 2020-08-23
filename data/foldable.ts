@@ -1,4 +1,4 @@
-import kind, { ap } from '../kind.ts';
+import kind, { ap } from "../kind.ts";
 
 export interface Foldable<T extends kind> {
   reduce: <A, B>(

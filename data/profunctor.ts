@@ -1,4 +1,4 @@
-import kind, { ap } from '../kind.ts';
+import kind, { ap } from "../kind.ts";
 
 export interface Profunctor<T extends kind<kind>> {
   promap: <A, B, C, D>(

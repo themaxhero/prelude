@@ -1,4 +1,4 @@
-import kind, { ap } from '../kind.ts';
+import kind, { ap } from "../kind.ts";
 
 export interface Filterable<T extends kind> {
   filter: <A>(

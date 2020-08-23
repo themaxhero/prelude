@@ -1,5 +1,5 @@
-import kind, { ap } from '../kind.ts';
-import Functor from '../data/functor.ts';
+import kind, { ap } from "../kind.ts";
+import Functor from "../data/functor.ts";
 
 export interface Alt<T extends kind> extends Functor<T> {
   alt: <A>(

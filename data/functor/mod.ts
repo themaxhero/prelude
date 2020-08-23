@@ -1,1 +1,1 @@
-export * from './contravariant.ts';
+export * from "./contravariant.ts";

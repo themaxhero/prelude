@@ -1,4 +1,4 @@
-import kind, { ap } from '../kind.ts';
+import kind, { ap } from "../kind.ts";
 
 export interface Functor<T extends kind> {
   map: <A, B>(
@@ -8,4 +8,3 @@ export interface Functor<T extends kind> {
 }
 
 export default Functor;
-
