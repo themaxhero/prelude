@@ -1,4 +1,4 @@
-import kind, { _, ap, flip } from "./kind.ts";
+import Kind, { _, Ap, Flip } from "./kind.ts";
 import { testType } from "./test/support.ts";
 
 type a = symbol;
@@ -10,48 +10,48 @@ const any = undefined as any;
 
 const assert = <T>(_: T) => () => {};
 
-interface FixKind<T> extends kind {
+interface FixKind<T> extends Kind {
   _: T;
   $: this[_];
 }
 
-interface IdKind extends kind {
+interface IdKind extends Kind {
   $: this[_];
 }
 
-interface IgnoreKind<A> extends kind {
+interface IgnoreKind<A> extends Kind {
   $: A;
 }
 
-interface AlwaysKind extends kind {
+interface AlwaysKind extends Kind {
   $: IgnoreKind<this[_]>;
 }
 
-interface AlwaysAlwaysKind extends kind {
+interface AlwaysAlwaysKind extends Kind {
   $: IgnoreKind<IgnoreKind<this[_]>>;
 }
 
 Deno.test(
   "binding types with '_'",
-  testType<a>(any as ap<FixKind<a>, b>),
+  testType<a>(any as Ap<FixKind<a>, b>),
 );
 
 Deno.test(
-  "apply 'ap' with kind (a -> a)",
-  testType<a>(any as ap<IdKind, a>),
+  "apply 'Ap' with Kind (a -> a)",
+  testType<a>(any as Ap<IdKind, a>),
 );
 
 Deno.test(
-  "apply 'ap' with kind (a -> b -> a)",
-  testType<a>(any as ap<ap<AlwaysKind, a>, b>),
+  "apply 'Ap' with Kind (a -> b -> a)",
+  testType<a>(any as Ap<Ap<AlwaysKind, a>, b>),
 );
 
 Deno.test(
-  "apply 'flip' with kind (a -> b -> a)",
-  testType<a>(any as ap<ap<flip<AlwaysKind>, b>, a>),
+  "apply 'Flip' with Kind (a -> b -> a)",
+  testType<a>(any as Ap<Ap<Flip<AlwaysKind>, b>, a>),
 );
 
 Deno.test(
-  "apply 'flip' twice with kind (a -> b -> c -> a)",
-  testType<a>(any as ap<ap<flip<ap<flip<AlwaysAlwaysKind>, c>>, b>, a>),
+  "apply 'Flip' twice with Kind (a -> b -> c -> a)",
+  testType<a>(any as Ap<Ap<Flip<Ap<Flip<AlwaysAlwaysKind>, c>>, b>, a>),
 );

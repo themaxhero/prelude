@@ -1,20 +1,20 @@
-export interface kind<B = unknown, A = unknown> {
+export interface Kind<B = unknown, A = unknown> {
   _: A;
   $: B;
 }
 
-export default kind;
+export default Kind;
 
 export type _ = "_";
 
 type $ = "$";
 
-export type ap<T extends kind, A = unknown> = (T & { _: A })[$];
+export type Ap<T extends Kind, A = unknown> = (T & { _: A })[$];
 
-export interface flip<T extends kind<kind>> extends kind {
+export interface Flip<T extends Kind<Kind>> extends Kind {
   $: FlipKind<T, this[_]>;
 }
 
-interface FlipKind<T extends kind<kind, A>, A> extends kind {
-  $: ap<ap<T, this[_]>, A>;
+interface FlipKind<T extends Kind<Kind, A>, A> extends Kind {
+  $: Ap<Ap<T, this[_]>, A>;
 }

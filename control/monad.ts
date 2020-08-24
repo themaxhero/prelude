@@ -1,14 +1,14 @@
-import kind, { ap } from "../kind.ts";
+import Kind, { Ap } from "../kind.ts";
 import Applicative from "./applicative.ts";
 import Chain, { deriveChain as deriveChain } from "./chain.ts";
 
-export interface Monad<T extends kind> extends Applicative<T>, Chain<T> {
-  join: <A>(tt: ap<T, ap<T, A>>) => ap<T, A>;
+export interface Monad<T extends Kind> extends Applicative<T>, Chain<T> {
+  join: <A>(tt: Ap<T, Ap<T, A>>) => Ap<T, A>;
 }
 
 export default Monad;
 
-export const deriveMonad = <T extends kind<kind>>(
+export const deriveMonad = <T extends Kind<Kind>>(
   { of, chain, ...rest }:
     & Pick<Applicative<T>, "of">
     & Pick<Chain<T>, "chain">,

@@ -1,10 +1,10 @@
-import kind, { ap } from "../kind.ts";
+import Kind, { Ap } from "../kind.ts";
 
-export interface Functor<T extends kind> {
+export interface Functor<T extends Kind> {
   map: <A, B>(
     f: (x: A) => B,
-    t: ap<T, A>,
-  ) => ap<T, B>;
+    t: Ap<T, A>,
+  ) => Ap<T, B>;
 }
 
 export default Functor;

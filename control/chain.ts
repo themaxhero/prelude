@@ -1,17 +1,17 @@
-import kind, { ap } from "../kind.ts";
+import Kind, { Ap } from "../kind.ts";
 import Apply from "./apply.ts";
 import Functor from "../data/functor.ts";
 
-export interface Chain<T extends kind> extends Apply<T> {
+export interface Chain<T extends Kind> extends Apply<T> {
   chain: <A, B>(
-    f: (x: A) => ap<T, B>,
-    t: ap<T, A>,
-  ) => ap<T, B>;
+    f: (x: A) => Ap<T, B>,
+    t: Ap<T, A>,
+  ) => Ap<T, B>;
 }
 
 export default Chain;
 
-export const deriveChain = <T extends kind>(
+export const deriveChain = <T extends Kind>(
   { chain, map, ...rest }:
     & Pick<Chain<T>, "chain">
     & Pick<Functor<T>, "map">,

@@ -1,11 +1,11 @@
-import kind, { ap } from "../kind.ts";
+import Kind, { Ap } from "../kind.ts";
 import Functor from "../data/functor.ts";
 
-export interface Alt<T extends kind> extends Functor<T> {
+export interface Alt<T extends Kind> extends Functor<T> {
   alt: <A>(
-    x: ap<T, A>,
-    y: ap<T, A>,
-  ) => ap<T, A>;
+    x: Ap<T, A>,
+    y: Ap<T, A>,
+  ) => Ap<T, A>;
 }
 
 export default Alt;

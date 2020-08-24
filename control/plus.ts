@@ -1,8 +1,8 @@
-import kind, { ap } from "../kind.ts";
+import Kind, { Ap } from "../kind.ts";
 import Alt from "./alt.ts";
 
-export interface Plus<T extends kind> extends Alt<T> {
-  zero: <A>() => ap<T, A>;
+export interface Plus<T extends Kind> extends Alt<T> {
+  zero: <A>() => Ap<T, A>;
 }
 
 export default Plus;

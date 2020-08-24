@@ -1,10 +1,10 @@
-import kind, { ap } from "../kind.ts";
+import Kind, { Ap } from "../kind.ts";
 
-export interface Filterable<T extends kind> {
+export interface Filterable<T extends Kind> {
   filter: <A>(
     pred: (x: A) => boolean,
-    ta: ap<T, A>,
-  ) => ap<T, A>;
+    ta: Ap<T, A>,
+  ) => Ap<T, A>;
 }
 
 export default Filterable;

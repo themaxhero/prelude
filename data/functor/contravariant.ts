@@ -1,10 +1,10 @@
-import kind, { ap } from "../../kind.ts";
+import Kind, { Ap } from "../../kind.ts";
 
-export interface Contravariant<T extends kind> {
+export interface Contravariant<T extends Kind> {
   contramap: <A, B>(
     f: (x: A) => B,
-    t: ap<T, B>,
-  ) => ap<T, A>;
+    t: Ap<T, B>,
+  ) => Ap<T, A>;
 }
 
 export default Contravariant;
