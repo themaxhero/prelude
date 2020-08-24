@@ -1,4 +1,5 @@
 import kind, { _, ap, flip } from "./kind.ts";
+import { testType } from "./test/support.ts";
 
 type a = symbol;
 type b = void;
@@ -32,25 +33,25 @@ interface AlwaysAlwaysKind extends kind {
 
 Deno.test(
   "binding types with '_'",
-  assert<a>(any as ap<FixKind<a>, b>),
+  testType<a>(any as ap<FixKind<a>, b>),
 );
 
 Deno.test(
   "apply 'ap' with kind (a -> a)",
-  assert<a>(any as ap<IdKind, a>),
+  testType<a>(any as ap<IdKind, a>),
 );
 
 Deno.test(
   "apply 'ap' with kind (a -> b -> a)",
-  assert<a>(any as ap<ap<AlwaysKind, a>, b>),
+  testType<a>(any as ap<ap<AlwaysKind, a>, b>),
 );
 
 Deno.test(
   "apply 'flip' with kind (a -> b -> a)",
-  assert<a>(any as ap<ap<flip<AlwaysKind>, b>, a>),
+  testType<a>(any as ap<ap<flip<AlwaysKind>, b>, a>),
 );
 
 Deno.test(
   "apply 'flip' twice with kind (a -> b -> c -> a)",
-  assert<a>(any as ap<ap<flip<ap<flip<AlwaysAlwaysKind>, c>>, b>, a>),
+  testType<a>(any as ap<ap<flip<ap<flip<AlwaysAlwaysKind>, c>>, b>, a>),
 );
