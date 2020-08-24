@@ -34,10 +34,10 @@ Is currently a work in progress and not a priority until instances for most prim
 
 ```ts
 (():
-  & Monoid<unknown[]>
-  & Setoid<unknown[]>
-  & Semigroup<unknown[]>
-  & Group<unknown[]>
+  & Monoid<Ap<ArrayKind, unknown>>
+  & Setoid<Ap<ArrayKind, unknown>>
+  & Semigroup<Ap<ArrayKind, unknown>>
+  & Group<Ap<ArrayKind, unknown>>
   & Functor<ArrayKind>
   & Foldable<ArrayKind>
   & Filterable<ArrayKind>
