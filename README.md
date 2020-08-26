@@ -1,6 +1,6 @@
 # prelude
 
-_a base library for functional programming in [deno](http://deno.land/)_
+_a base library for functional programming in [deno](http://deno.land)_
 
 ## Roadmap
 
@@ -11,16 +11,17 @@ _a base library for functional programming in [deno](http://deno.land/)_
 
 ### Goals
 
-- provide [interfaces](https://github.com/kress95/prelude/blob/master/static-land.ts) corresponding [static-land spec](https://github.com/rpominov/static-land) type classes and factory functions for implementing its instances
-- provide good replacement for libraries like [fp-ts](https://github.com/gcanti/fp-ts), [ramda](https://github.com/ramda/ramda), [hkts](https://github.com/pelotom/hkts) and [lodash](https://github.com/lodash/lodash)
+- provide [interfaces](https://github.com/kress95/prelude/blob/master/static-land.ts) corresponding to [static-land spec](https://github.com/rpominov/static-land) type classes and factory functions for implementing its instances
+- provide a good replacement for libraries like [fp-ts](https://github.com/gcanti/fp-ts), [ramda](https://github.com/ramda/ramda), [hkts](https://github.com/pelotom/hkts) and [lodash](https://github.com/lodash/lodash)
 - provide interfaces for additional [purescript](https://github.com/purescript/purescript) based type classes
 - provide some basic (primitives, Maybe, Either, etc...) instances for existing type classes
-- deno idioms and support comes first, then compatibility for browser and node
+- support and idioms for deno comes first, but browser and node should be compatible
 
 ### Non-Goals
 
 - break compatibility with static-land
-- provide every haskell/purescript equivalent type class and instance
+- provide every type class and instance corresponding to haskell/purescript 
+- requiring abstractions with higher runtime cost than handwritten functional code
 
 ## Documentation
 
@@ -71,8 +72,8 @@ If you want to contribute to prelude:
 1. clone this repository
 2. make sure you have deno installed in your path
 3. install the `pre-commit` running:
-    - on windows: `.\scripts\hook` from the repository root directory
     - on linux/unix-likes: `./scripts/hook` from the repository root directory
+    - on windows with [cmder](https://cmder.net): `sh scripts/hook` from the repository root directory
 4. run scripts from the repository root directory
 
 Thanks!
