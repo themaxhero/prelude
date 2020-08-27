@@ -8,8 +8,6 @@ type c = never;
 // deno-lint-ignore no-explicit-any
 const any = undefined as any;
 
-const assert = <T>(_: T) => () => {};
-
 interface FixKind<T> extends Kind {
   _: T;
   $: this[_];
