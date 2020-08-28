@@ -4,6 +4,7 @@ export * from "./control/applicative.ts";
 export * from "./control/apply.ts";
 export * from "./control/category.ts";
 export * from "./control/chain.ts";
+export * from "./control/chain_rec.ts";
 export * from "./control/comonad.ts";
 export * from "./control/extend.ts";
 export * from "./control/monad.ts";
