@@ -1,7 +1,41 @@
 #!/bin/sh
 
-set -e
+old_stash=$(git rev-parse -q --verify refs/stash)
+git stash save -q --keep-index
+new_stash=$(git rev-parse -q --verify refs/stash)
 
+if [ "$old_stash" = "$new_stash" ]; then
+  echo "no changes to check"
+  sleep 1
+  exit 0
+fi
+
+echo "running pre-commit checks"
+
+errors=false
+
+echo "deno fmt --check"
 deno fmt --check
+if [ ! $? -eq 0 ]; then
+  errors=true
+fi
+
+echo "deno lint --unstable"
 deno lint --unstable
+if [ ! $? -eq 0 ]; then
+  errors=true
+fi
+
+echo "deno test -A --unstable"
 deno test -A --unstable
+if [ ! $? -eq 0 ]; then
+  errors=true
+fi
+
+git reset --hard -q && git stash apply --index -q && git stash drop -q
+
+if [ "$errors" = "true" ]; then
+  exit 1
+fi
+
+exit 0
