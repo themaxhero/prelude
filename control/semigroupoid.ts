@@ -1,10 +1,10 @@
-import Kind, { Ap } from "../kind.ts";
+import { Kind2, Ap2 } from "../kind.ts";
 
-export interface Semigroupoid<T extends Kind<Kind>> {
+export interface Semigroupoid<T extends Kind2> {
   compose: <I, J, K>(
-    tij: Ap<Ap<T, I>, J>,
-    tjk: Ap<Ap<T, J>, K>,
-  ) => Ap<Ap<T, I>, K>;
+    tij: Ap2<T, I, J>,
+    tjk: Ap2<T, J, K>,
+  ) => Ap2<T, I, K>;
 }
 
 export default Semigroupoid;

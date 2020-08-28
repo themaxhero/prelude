@@ -1,4 +1,4 @@
-import Kind, { _, Ap, Flip } from "./kind.ts";
+import Kind, { _, Ap, Ap2, Flip } from "./kind.ts";
 import { testType } from "./test/support.ts";
 
 type a = symbol;
@@ -41,15 +41,15 @@ Deno.test(
 
 Deno.test(
   "apply 'Ap' with Kind (a -> b -> a)",
-  testType<a>(any as Ap<Ap<AlwaysKind, a>, b>),
+  testType<a>(any as Ap2<AlwaysKind, a, b>),
 );
 
 Deno.test(
   "apply 'Flip' with Kind (a -> b -> a)",
-  testType<a>(any as Ap<Ap<Flip<AlwaysKind>, b>, a>),
+  testType<a>(any as Ap2<Flip<AlwaysKind>, b, a>),
 );
 
 Deno.test(
   "apply 'Flip' twice with Kind (a -> b -> c -> a)",
-  testType<a>(any as Ap<Ap<Flip<Ap<Flip<AlwaysAlwaysKind>, c>>, b>, a>),
+  testType<a>(any as Ap2<Flip<Ap<Flip<AlwaysAlwaysKind>, c>>, b, a>),
 );

@@ -8,7 +8,7 @@ export interface Monad<T extends Kind> extends Applicative<T>, Chain<T> {
 
 export default Monad;
 
-export const deriveMonad = <T extends Kind<Kind>>(
+export const deriveMonad = <T extends Kind>(
   { of, chain, ...rest }:
     & Pick<Applicative<T>, "of">
     & Pick<Chain<T>, "chain">,
