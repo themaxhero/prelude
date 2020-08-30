@@ -19,6 +19,7 @@ export const assertMonoid = <T>(
     a,
     "monoid right identity law",
   );
+
   assertEquals(
     concat(empty(), a),
     a,

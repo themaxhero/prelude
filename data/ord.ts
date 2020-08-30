@@ -18,10 +18,12 @@ export const assertOrd = <T>(
     lte(a, b) || lte(b, a),
     "ord totality law",
   );
+
   assert(
     lte(a, b) && lte(b, a) ? equals(a, b) : !equals(a, b),
     "ord antisymmetry law",
   );
+
   assert(
     lte(a, b) && lte(b, c) ? lte(a, c) : lte(a, c),
     "ord transitivity law",

@@ -20,6 +20,7 @@ export const assertSetoid = <T>(
     equals(a, b) === equals(b, a),
     "setoid symmetry law",
   );
+
   assert(
     equals(a, b) && equals(b, c) ? equals(a, c) : !equals(a, c),
     "setoid transitivity law",
