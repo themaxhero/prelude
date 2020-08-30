@@ -10,7 +10,7 @@ export interface Semigroupoid<T extends Kind2> {
 
 export default Semigroupoid;
 
-export const assertSemigroupoid = <T extends Kind2, I, J, K>(
+export const testSemigroupoid = <T extends Kind2, I, J, K>(
   { assertEquals, compose, a, b, c }:
     & Semigroupoid<T>
     & { assertEquals: AssertEquals; a: I; b: J; c: K },

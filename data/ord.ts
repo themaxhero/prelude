@@ -1,4 +1,4 @@
-import Setoid, { assertSetoid } from "./setoid.ts";
+import Setoid, { testSetoid } from "./setoid.ts";
 import { Assert } from "../test/asserts.ts";
 
 export interface Ord<T> extends Setoid<T> {
@@ -7,10 +7,10 @@ export interface Ord<T> extends Setoid<T> {
 
 export default Ord;
 
-export const assertOrd = <T>(
+export const testOrd = <T>(
   args: Ord<T> & { assert: Assert; a: T; b: T; c: T },
 ) => {
-  assertSetoid(args);
+  testSetoid(args);
 
   const { lte, equals, assert, a, b, c } = args;
 

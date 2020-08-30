@@ -1,5 +1,5 @@
 import { Kind2, Ap2 } from "../kind.ts";
-import Semigroupoid from "../control/semigroupoid.ts";
+import Semigroupoid, { testSemigroupoid } from "../control/semigroupoid.ts";
 import { AssertEquals } from "../test/asserts.ts";
 
 export interface Category<T extends Kind2> extends Semigroupoid<T> {
@@ -8,10 +8,10 @@ export interface Category<T extends Kind2> extends Semigroupoid<T> {
 
 export default Category;
 
-export const assertCategory = <T extends Kind2, I, J, K>(
+export const testCategory = <T extends Kind2, I, J, K>(
   args:
     & Category<T>
-    & { assertEquals: AssertEquals; a: I },
+    & { assertEquals: AssertEquals; a: I; b: J; c: K },
 ) => {
   const { id, compose, assertEquals, a } = args;
 

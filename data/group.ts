@@ -1,4 +1,4 @@
-import Monoid, { assertMonoid } from "./monoid.ts";
+import Monoid, { testMonoid } from "./monoid.ts";
 import { AssertEquals } from "../test/asserts.ts";
 
 export interface Group<T> extends Monoid<T> {
@@ -7,10 +7,10 @@ export interface Group<T> extends Monoid<T> {
 
 export default Group;
 
-export const assertGroup = <T>(
+export const testGroup = <T>(
   args: Group<T> & { assertEquals: AssertEquals; a: T; b: T; c: T },
 ) => {
-  assertMonoid(args);
+  testMonoid(args);
 
   const { invert, empty, concat, assertEquals, a } = args;
 

@@ -6,7 +6,7 @@ export interface Semigroup<T> {
 
 export default Semigroup;
 
-export const assertSemigroup = <T>(
+export const testSemigroup = <T>(
   { concat, assertEquals, a, b, c }:
     & Semigroup<T>
     & { assertEquals: AssertEquals; a: T; b: T; c: T },

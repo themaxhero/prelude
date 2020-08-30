@@ -6,7 +6,7 @@ export interface Setoid<T> {
 
 export default Setoid;
 
-export const assertSetoid = <T>(
+export const testSetoid = <T>(
   { equals, assert, a, b, c }:
     & Setoid<T>
     & { assert: Assert; a: T; b: T; c: T },
