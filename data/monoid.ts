@@ -1,4 +1,4 @@
-import Semigroup from "./semigroup.ts";
+import Semigroup, { assertSemigroup } from "./semigroup.ts";
 import { AssertEquals } from "../test/asserts.ts";
 
 export interface Monoid<T> extends Semigroup<T> {
@@ -8,10 +8,12 @@ export interface Monoid<T> extends Semigroup<T> {
 export default Monoid;
 
 export const assertMonoid = <T>(
-  { concat, empty, assertEquals, a }:
-    & Monoid<T>
-    & { assertEquals: AssertEquals; a: T },
+  args: Monoid<T> & { assertEquals: AssertEquals; a: T; b: T; c: T },
 ) => {
+  assertSemigroup(args);
+
+  const { concat, empty, assertEquals, a } = args;
+
   assertEquals(
     concat(a, empty()),
     a,
