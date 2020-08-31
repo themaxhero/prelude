@@ -29,16 +29,16 @@ export const deriveBifunctor = <T extends Kind2>(
   ...rest,
 });
 
-export const testBifunctor = <T extends Kind2, A, B, C, E, D, F, G>(
+export const testBifunctor = <T extends Kind2, A, B, C, D, E, F>(
   args:
     & Bifunctor<T>
     & {
       assertEquals: AssertEquals;
       a: Ap2<T, A, D>;
-      f: (c: B) => C;
+      f: (b: B) => C;
       g: (a: A) => B;
-      h: (e: F) => G;
-      i: (c: E) => F;
+      h: (e: E) => F;
+      i: (d: D) => E;
     },
 ) => {
   const { first, second } = deriveBifunctor(args);
@@ -67,15 +67,15 @@ export const testBifunctor = <T extends Kind2, A, B, C, E, D, F, G>(
   );
 
   assertEquals(
-    bimap<A, C, E, G>(
-      (x: A) => f(g(x)),
-      (x: E) => h(i(x)),
+    bimap<A, C, D, F>(
+      (x: A): C => f(g(x)),
+      (x: D): F => h(i(x)),
       a,
     ),
-    bimap<B, C, F, G>(
+    bimap<B, C, E, F>(
       f,
       h,
-      bimap(g, i, a),
+      bimap<A, B, D, E>(g, i, a),
     ),
     "bifunctor composition law",
   );
