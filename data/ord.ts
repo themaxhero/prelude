@@ -10,7 +10,7 @@ export default Ord;
 export const testOrd = <T>(
   args: Ord<T> & { assert: Assert; a: T; b: T; c: T },
 ) => {
-  testSetoid(args);
+  testSetoid<T>(args);
 
   const { lte, equals, assert, a, b, c } = args;
 

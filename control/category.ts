@@ -13,7 +13,7 @@ export const testCategory = <T extends Kind2, I, J, K>(
     & Category<T>
     & { assertEquals: AssertEquals; a: I; b: J; c: K },
 ) => {
-  testSemigroupoid(args);
+  testSemigroupoid<T, I, J, K>(args);
 
   const { id, compose, assertEquals, a } = args;
 

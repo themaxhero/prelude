@@ -10,7 +10,7 @@ export default Group;
 export const testGroup = <T>(
   args: Group<T> & { assertEquals: AssertEquals; a: T; b: T; c: T },
 ) => {
-  testMonoid(args);
+  testMonoid<T>(args);
 
   const { invert, empty, concat, assertEquals, a } = args;
 
