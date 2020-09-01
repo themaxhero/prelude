@@ -11,7 +11,7 @@ export interface Extend<T extends Kind> extends Functor<T> {
 
 export default Extend;
 
-export const assertExtend = <T extends Kind, A, B, C>(
+export const testExtend = <T extends Kind, A, B, C>(
   args:
     & Extend<T>
     & {
