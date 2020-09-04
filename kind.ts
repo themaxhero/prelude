@@ -22,3 +22,7 @@ export interface Flip<T extends Kind2> extends Kind {
 interface FlipKind<T extends Kind2<A>, A> extends Kind {
   $: Ap2<T, this[_], A>;
 }
+
+export interface Compose<A extends Kind2, B extends Kind> extends Kind {
+  $: Ap<A, Ap<B, this[_]>>;
+}
