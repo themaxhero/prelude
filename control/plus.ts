@@ -9,20 +9,18 @@ export interface Plus<T extends Kind> extends Alt<T> {
 export default Plus;
 
 export const testPlus = <T extends Kind, A, B, C>(
-  args:
-    & Plus<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, A>;
-      b: Ap<T, A>;
-      c: Ap<T, A>;
-      f: (a: A) => B;
-      g: (b: B) => C;
-    },
+  args: Plus<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    tA2: Ap<T, A>;
+    tA3: Ap<T, A>;
+    fAB1: (a: A) => B;
+    fBC1: (b: B) => C;
+  },
 ) => {
   testAlt<T, A, B, C>(args);
 
-  const { zero, alt, map, assertEquals, a, f } = args;
+  const { zero, alt, map, assertEquals, tA1: a, fAB1: f } = args;
 
   assertEquals(
     alt<A>(a, zero<A>()),

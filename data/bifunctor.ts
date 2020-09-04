@@ -30,34 +30,33 @@ export const deriveBifunctor = <T extends Kind2>(
 });
 
 export const testBifunctor = <T extends Kind2, A, B, C, D, E, F>(
-  args:
-    & Bifunctor<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap2<T, A, D>;
-      f: (b: B) => C;
-      g: (a: A) => B;
-      h: (e: E) => F;
-      i: (d: D) => E;
-    },
+  args: Bifunctor<T> & {
+    assertEquals: AssertEquals;
+    tAD1: Ap2<T, A, D>;
+    fBC1: (b: B) => C;
+    fAB1: (a: A) => B;
+    fEF1: (e: E) => F;
+    fDE1: (d: D) => E;
+  },
 ) => {
   const { first, second } = deriveBifunctor<T>(args);
-  const { assertEquals, bimap, a, f, g, h, i } = args;
+  const { assertEquals, bimap, tAD1: a, fBC1: f, fAB1: g, fEF1: h, fDE1: i } =
+    args;
 
   testFunctor<Ap<Flip<T>, D>, A, B, C>({
     ...first<D>(),
     assertEquals,
-    a,
-    g,
-    f,
+    tA1: a,
+    fAB1: g,
+    fBC1: f,
   });
 
   testFunctor<Ap<T, A>, A, B, C>({
     ...second<A>(),
     assertEquals,
-    a,
-    g,
-    f,
+    tA1: a,
+    fAB1: g,
+    fBC1: f,
   });
 
   assertEquals(

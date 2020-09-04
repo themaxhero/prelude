@@ -24,29 +24,18 @@ export const deriveChain = <T extends Kind>(
 });
 
 export const testChain = <T extends Kind, A, B, C>(
-  { map, chain, assertEquals, a, u, f, g, ...args }:
-    & Chain<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, (x: B) => A>;
-      u: Ap<T, A>;
-      v: Ap<T, (x: C) => B>;
-      w: Ap<T, C>;
-      f: (a: A) => B;
-      g: (b: B) => C;
-      h: (b: B) => A;
-      i: (c: C) => B;
-    },
+  args: Chain<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    fAB1: (a: A) => B;
+    fBC1: (b: B) => C;
+    tfBC1: Ap<T, (x: B) => C>;
+    tfAB1: Ap<T, (x: A) => B>;
+  },
 ) => {
-  testApply<T, A, B, C>({
-    ...deriveChain({ map, chain }),
-    assertEquals,
-    a,
-    u: args.v,
-    v: args.w,
-    f: args.h,
-    g: args.i,
-  });
+  testApply<T, A, B, C>({ ...args, ...deriveChain(args) });
+
+  const { chain, assertEquals, tA1: u, fAB1: f, fBC1: g } = args;
 
   assertEquals(
     chain(g, chain(f, u)),

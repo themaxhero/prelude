@@ -12,31 +12,31 @@ export interface Apply<T extends Kind> extends Functor<T> {
 export default Apply;
 
 export const testApply = <T extends Kind, A, B, C>(
-  { map, ap, assertEquals, a, u, v, f, g }:
-    & Apply<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, (x: B) => A>;
-      u: Ap<T, (x: C) => B>;
-      v: Ap<T, C>;
-      f: (b: B) => A;
-      g: (c: C) => B;
-    },
+  args: Apply<T> & {
+    assertEquals: AssertEquals;
+    tfBC1: Ap<T, (x: B) => C>;
+    tfAB1: Ap<T, (x: A) => B>;
+    tA1: Ap<T, A>;
+    fAB1: (c: A) => B;
+    fBC1: (b: B) => C;
+  },
 ) => {
-  testFunctor<T, C, B, A>({ map, assertEquals, a: u, f, g });
+  const { map, ap, assertEquals, tfBC1: a, tfAB1: u, tA1: v } = args;
+
+  testFunctor<T, A, B, C>(args);
 
   assertEquals(
-    ap<C, A>(
-      ap<(x: C) => B, (x: C) => A>(
-        map<(x: B) => A, (g: (x: C) => B) => (x: C) => A>(
-          (f: (x: B) => A) => (g: (x: C) => B) => (x: C) => f(g(x)),
+    ap<A, C>(
+      ap<(x: A) => B, (x: A) => C>(
+        map<(x: B) => C, (g: (x: A) => B) => (x: A) => C>(
+          (f: (x: B) => C) => (g: (x: A) => B) => (x: A) => f(g(x)),
           a,
         ),
         u,
       ),
       v,
     ),
-    ap<B, A>(a, ap<C, B>(u, v)),
+    ap<B, C>(a, ap<A, B>(u, v)),
     "apply composition law",
   );
 };

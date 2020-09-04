@@ -1,4 +1,4 @@
-import { Assert } from "../test/asserts.ts";
+import { AssertEquals } from "../test/asserts.ts";
 
 export interface Setoid<T> {
   equals: (x: T, y: T) => boolean;
@@ -6,23 +6,31 @@ export interface Setoid<T> {
 
 export default Setoid;
 
-export const testSetoid = <T>(
-  { equals, assert, a, b, c }:
-    & Setoid<T>
-    & { assert: Assert; a: T; b: T; c: T },
+export const testSetoid = <A>(
+  args: Setoid<A> & {
+    assertEquals: AssertEquals;
+    a1: A;
+    a2: A;
+    a3: A;
+  },
 ) => {
-  assert(
+  const { equals, assertEquals, a1: a, a2: b, a3: c } = args;
+
+  assertEquals(
     equals(a, a),
+    true,
     "setoid reflexivity law",
   );
 
-  assert(
+  assertEquals(
     equals(a, b) === equals(b, a),
+    true,
     "setoid symmetry law",
   );
 
-  assert(
+  assertEquals(
     equals(a, b) && equals(b, c) ? equals(a, c) : !equals(a, c),
+    true,
     "setoid transitivity law",
   );
 };

@@ -11,15 +11,15 @@ export interface Functor<T extends Kind> {
 export default Functor;
 
 export const testFunctor = <T extends Kind, A, B, C>(
-  { map, assertEquals, a, f, g }:
-    & Functor<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, A>;
-      f: (c: B) => C;
-      g: (a: A) => B;
-    },
+  args: Functor<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    fAB1: (a: A) => B;
+    fBC1: (b: B) => C;
+  },
 ) => {
+  const { map, assertEquals, tA1: a, fAB1: g, fBC1: f } = args;
+
   assertEquals(
     map<A, A>((x: A) => x, a),
     a,

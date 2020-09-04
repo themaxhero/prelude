@@ -8,20 +8,18 @@ export interface Comonad<T extends Kind> extends Extend<T> {
 
 export default Comonad;
 
-export const assertComonad = <T extends Kind, A, B, C>(
-  args:
-    & Comonad<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, A>;
-      w: Ap<T, A>;
-      f: (b: Ap<T, B>) => C;
-      g: (a: Ap<T, A>) => B;
-    },
+export const testComonad = <T extends Kind, A, B, C>(
+  args: Comonad<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    tA2: Ap<T, A>;
+    fTBC1: (b: Ap<T, B>) => C;
+    fTAB1: (a: Ap<T, A>) => B;
+  },
 ) => {
   testExtend<T, A, B, C>(args);
 
-  const { extract, extend, assertEquals, w, f } = args;
+  const { extract, extend, assertEquals, tA2: w, fTBC1: f } = args;
 
   assertEquals(
     extend<A, A>(extract, w),

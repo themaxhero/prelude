@@ -1,5 +1,5 @@
 import Setoid, { testSetoid } from "./setoid.ts";
-import { Assert } from "../test/asserts.ts";
+import { AssertEquals } from "../test/asserts.ts";
 
 export interface Ord<T> extends Setoid<T> {
   lte: (x: T, y: T) => boolean;
@@ -7,25 +7,33 @@ export interface Ord<T> extends Setoid<T> {
 
 export default Ord;
 
-export const testOrd = <T>(
-  args: Ord<T> & { assert: Assert; a: T; b: T; c: T },
+export const testOrd = <A>(
+  args: Ord<A> & {
+    assertEquals: AssertEquals;
+    a1: A;
+    a2: A;
+    a3: A;
+  },
 ) => {
-  testSetoid<T>(args);
+  testSetoid<A>(args);
 
-  const { lte, equals, assert, a, b, c } = args;
+  const { lte, equals, assertEquals, a1: a, a2: b, a3: c } = args;
 
-  assert(
+  assertEquals(
     lte(a, b) || lte(b, a),
+    true,
     "ord totality law",
   );
 
-  assert(
+  assertEquals(
     lte(a, b) && lte(b, a) ? equals(a, b) : !equals(a, b),
+    true,
     "ord antisymmetry law",
   );
 
-  assert(
+  assertEquals(
     lte(a, b) && lte(b, c) ? lte(a, c) : lte(a, c),
+    true,
     "ord transitivity law",
   );
 };

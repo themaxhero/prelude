@@ -12,19 +12,23 @@ export interface Extend<T extends Kind> extends Functor<T> {
 export default Extend;
 
 export const testExtend = <T extends Kind, A, B, C>(
-  args:
-    & Extend<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, A>;
-      w: Ap<T, A>;
-      f: (b: Ap<T, B>) => C;
-      g: (a: Ap<T, A>) => B;
-    },
+  args: Extend<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    tA2: Ap<T, A>;
+    fTBC1: (b: Ap<T, B>) => C;
+    fTAB1: (a: Ap<T, A>) => B;
+  },
 ) => {
-  testFunctor<T, A, B, C>(args);
+  testFunctor<T, Ap<T, A>, B, C>({
+    map: args.map,
+    assertEquals: args.assertEquals,
+    tA1: args.tA1,
+    fAB1: args.fTAB1,
+    fBC1: args.fTBC1,
+  });
 
-  const { extend, assertEquals, f, g, w } = args;
+  const { extend, assertEquals, fTBC1: f, fTAB1: g, tA2: w } = args;
 
   assertEquals(
     extend<A, C>(f, extend<A, B>(g, w)),

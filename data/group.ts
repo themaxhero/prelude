@@ -7,12 +7,17 @@ export interface Group<T> extends Monoid<T> {
 
 export default Group;
 
-export const testGroup = <T>(
-  args: Group<T> & { assertEquals: AssertEquals; a: T; b: T; c: T },
+export const testGroup = <A>(
+  args: Group<A> & {
+    assertEquals: AssertEquals;
+    a1: A;
+    a2: A;
+    a3: A;
+  },
 ) => {
-  testMonoid<T>(args);
+  testMonoid<A>(args);
 
-  const { invert, empty, concat, assertEquals, a } = args;
+  const { invert, empty, concat, assertEquals, a1: a } = args;
 
   assertEquals(
     concat(a, invert(a)),

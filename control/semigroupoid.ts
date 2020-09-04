@@ -10,14 +10,14 @@ export interface Semigroupoid<T extends Kind2> {
 
 export default Semigroupoid;
 
-export const testSemigroupoid = <T extends Kind2, I, J, K>(
-  { assertEquals, compose, a, b, c }:
-    & Semigroupoid<T>
-    & { assertEquals: AssertEquals; a: I; b: J; c: K },
+export const testSemigroupoid = <T extends Kind2, A, B, C>(
+  args: Semigroupoid<T> & { assertEquals: AssertEquals; a1: A; b1: B; c1: C },
 ) => {
+  const { assertEquals, compose, a1: a, b1: b, c1: c } = args;
+
   assertEquals(
-    compose<I, J, K>(compose<I, J, K>(a, b), c),
-    compose<I, J, K>(a, compose<I, J, K>(b, c)),
+    compose<A, B, C>(compose<A, B, C>(a, b), c),
+    compose<A, B, C>(a, compose<A, B, C>(b, c)),
     "semigroupoid associativity law",
   );
 };

@@ -8,28 +8,23 @@ export interface Alternative<T extends Kind> extends Applicative<T>, Plus<T> {}
 export default Alternative;
 
 export const testAlternative = <T extends Kind, A, B, C>(
-  { d, h, i, ...args }:
-    & Alternative<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, A>;
-      b: Ap<T, A>;
-      c: Ap<T, A>;
-      d: Ap<T, (x: B) => A>;
-      u: Ap<T, (x: C) => B>;
-      v: Ap<T, C>;
-      f: (a: A) => B;
-      g: (b: B) => C;
-      h: (b: B) => A;
-      i: (c: C) => B;
-      x: B;
-      y: C;
-    },
+  args: Alternative<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    tA2: Ap<T, A>;
+    tA3: Ap<T, A>;
+    a1: A;
+    b1: B;
+    fAB1: (c: A) => B;
+    fBC1: (b: B) => C;
+    tfAB1: Ap<T, (x: A) => B>;
+    tfBC1: Ap<T, (x: B) => C>;
+  },
 ) => {
-  testApplicative<T, A, B, C>({ ...args, a: d, f: h, g: i });
+  testApplicative<T, A, B, C>(args);
   testPlus<T, A, B, C>(args);
 
-  const { ap, alt, zero, assertEquals, a, b, c } = args;
+  const { ap, alt, zero, assertEquals, tA1: a, tA2: b, tA3: c } = args;
 
   assertEquals(
     ap<A, A>(alt<A>(a, b), c),

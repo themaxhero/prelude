@@ -6,11 +6,16 @@ export interface Semigroup<T> {
 
 export default Semigroup;
 
-export const testSemigroup = <T>(
-  { concat, assertEquals, a, b, c }:
-    & Semigroup<T>
-    & { assertEquals: AssertEquals; a: T; b: T; c: T },
+export const testSemigroup = <A>(
+  args: Semigroup<A> & {
+    assertEquals: AssertEquals;
+    a1: A;
+    a2: A;
+    a3: A;
+  },
 ) => {
+  const { concat, assertEquals, a1: a, a2: b, a3: c } = args;
+
   assertEquals(
     concat(concat(a, b), c),
     concat(a, concat(b, c)),

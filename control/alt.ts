@@ -12,20 +12,18 @@ export interface Alt<T extends Kind> extends Functor<T> {
 export default Alt;
 
 export const testAlt = <T extends Kind, A, B, C>(
-  { f, g, ...args }:
-    & Alt<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, A>;
-      b: Ap<T, A>;
-      c: Ap<T, A>;
-      f: (a: A) => B;
-      g: (b: B) => C;
-    },
+  args: Alt<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    tA2: Ap<T, A>;
+    tA3: Ap<T, A>;
+    fAB1: (a: A) => B;
+    fBC1: (b: B) => C;
+  },
 ) => {
-  testFunctor<T, A, B, C>({ ...args, f: g, g: f });
+  const { alt, map, assertEquals, tA1: a, tA2: b, tA3: c, fAB1: f } = args;
 
-  const { alt, map, assertEquals, a, b, c } = args;
+  testFunctor<T, A, B, C>(args);
 
   assertEquals(
     alt<A>(alt<A>(a, b), c),

@@ -7,12 +7,17 @@ export interface Monoid<T> extends Semigroup<T> {
 
 export default Monoid;
 
-export const testMonoid = <T>(
-  args: Monoid<T> & { assertEquals: AssertEquals; a: T; b: T; c: T },
+export const testMonoid = <A>(
+  args: Monoid<A> & {
+    assertEquals: AssertEquals;
+    a1: A;
+    a2: A;
+    a3: A;
+  },
 ) => {
-  testSemigroup<T>(args);
+  testSemigroup<A>(args);
 
-  const { concat, empty, assertEquals, a } = args;
+  const { concat, empty, assertEquals, a1: a } = args;
 
   assertEquals(
     concat(a, empty()),

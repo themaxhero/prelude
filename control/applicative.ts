@@ -18,38 +18,37 @@ export const deriveApplicative = <T extends Kind>(
 });
 
 export const testApplicative = <T extends Kind, A, B, C>(
-  args:
-    & Applicative<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, (x: B) => A>;
-      u: Ap<T, (x: C) => B>;
-      v: Ap<T, C>;
-      f: (b: B) => A;
-      g: (c: C) => B;
-      x: B;
-      y: C;
-    },
+  args: Applicative<T> & {
+    assertEquals: AssertEquals;
+    a1: A;
+    b1: B;
+    tA1: Ap<T, A>;
+    fAB1: (c: A) => B;
+    fBC1: (b: B) => C;
+    tfAB1: Ap<T, (x: A) => B>;
+    tfBC1: Ap<T, (x: B) => C>;
+  },
 ) => {
   testApply<T, A, B, C>(args);
 
-  const { of, ap, assertEquals, u, v, f, x, y } = args;
+  const { of, ap, assertEquals, tfAB1: u, tA1: v, fBC1: f, b1: x, a1: y } =
+    args;
 
   assertEquals(
-    ap<C, C>(of<(x: C) => C>((x: C): C => x), v),
+    ap<A, A>(of<(x: A) => A>((x: A): A => x), v),
     v,
     "applicative identity law",
   );
 
   assertEquals(
-    ap<B, A>(of<(b: B) => A>(f), of<B>(x)),
-    of<A>(f(x)),
+    ap<B, C>(of<(b: B) => C>(f), of<B>(x)),
+    of<C>(f(x)),
     "applicative homomorphism law",
   );
 
   assertEquals(
-    ap<C, B>(u, of<C>(y)),
-    ap<(x: C) => B, B>(of<(f: (c: C) => B) => B>((f: (c: C) => B) => f(y)), u),
+    ap<A, B>(u, of<A>(y)),
+    ap<(x: A) => B, B>(of<(f: (c: A) => B) => B>((f: (c: A) => B) => f(y)), u),
     "applicative interchange law",
   );
 };

@@ -11,15 +11,15 @@ export interface Contravariant<T extends Kind> {
 export default Contravariant;
 
 export const testContravariant = <T extends Kind, A, B, C>(
-  { contramap, assertEquals, a, f, g }:
-    & Contravariant<T>
-    & {
-      assertEquals: AssertEquals;
-      a: Ap<T, A>;
-      f: (B: B) => C;
-      g: (a: A) => B;
-    },
+  args: Contravariant<T> & {
+    assertEquals: AssertEquals;
+    tA1: Ap<T, A>;
+    fBC1: (B: B) => C;
+    fAB1: (a: A) => B;
+  },
 ) => {
+  const { contramap, assertEquals, tA1: a, fBC1: f, fAB1: g } = args;
+
   assertEquals(
     contramap<A, A>((x: A): A => x, a),
     a,

@@ -8,23 +8,21 @@ export interface Category<T extends Kind2> extends Semigroupoid<T> {
 
 export default Category;
 
-export const testCategory = <T extends Kind2, I, J, K>(
-  args:
-    & Category<T>
-    & { assertEquals: AssertEquals; a: I; b: J; c: K },
+export const testCategory = <T extends Kind2, A, B, C>(
+  args: Category<T> & { assertEquals: AssertEquals; a1: A; b1: B; c1: C },
 ) => {
-  testSemigroupoid<T, I, J, K>(args);
+  testSemigroupoid<T, A, B, C>(args);
 
-  const { id, compose, assertEquals, a } = args;
+  const { id, compose, assertEquals, a1: a } = args;
 
   assertEquals(
-    compose<I, I, I>(a, id<I, I>()),
+    compose<A, A, A>(a, id<A, A>()),
     a,
     "category right identity law",
   );
 
   assertEquals(
-    compose<I, I, I>(id<I, I>(), a),
+    compose<A, A, A>(id<A, A>(), a),
     a,
     "category left identity law",
   );
