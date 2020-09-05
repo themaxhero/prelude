@@ -11,15 +11,17 @@ export default Comonad;
 export const testComonad = <T extends Kind, A, B, C>(
   args: Comonad<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    tA2: Ap<T, A>;
-    fTBC1: (b: Ap<T, B>) => C;
-    fTAB1: (a: Ap<T, A>) => B;
+    ta: Ap<T, A>;
+    tb: Ap<T, A>;
+    ff: (a: Ap<T, A>) => B;
+    fg: (b: Ap<T, B>) => C;
+    f: (a: A) => B;
+    g: (b: B) => C;
   },
 ) => {
   testExtend<T, A, B, C>(args);
 
-  const { extract, extend, assertEquals, tA2: w, fTBC1: f } = args;
+  const { extract, extend, assertEquals, tb: w, fg: f } = args;
 
   assertEquals(
     extend<A, A>(extract, w),

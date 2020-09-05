@@ -10,21 +10,21 @@ export default Alternative;
 export const testAlternative = <T extends Kind, A, B, C>(
   args: Alternative<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    tA2: Ap<T, A>;
-    tA3: Ap<T, A>;
-    a1: A;
-    b1: B;
-    fAB1: (c: A) => B;
-    fBC1: (b: B) => C;
-    tfAB1: Ap<T, (x: A) => B>;
-    tfBC1: Ap<T, (x: B) => C>;
+    a: A;
+    d: B;
+    ta: Ap<T, A>;
+    tb: Ap<T, A>;
+    tc: Ap<T, A>;
+    f: (c: A) => B;
+    g: (b: B) => C;
+    ff: Ap<T, (x: A) => B>;
+    fg: Ap<T, (x: B) => C>;
   },
 ) => {
   testApplicative<T, A, B, C>(args);
   testPlus<T, A, B, C>(args);
 
-  const { ap, alt, zero, assertEquals, tA1: a, tA2: b, tA3: c } = args;
+  const { ap, alt, zero, assertEquals, ta: a, tb: b, tc: c } = args;
 
   assertEquals(
     ap<A, A>(alt<A>(a, b), c),

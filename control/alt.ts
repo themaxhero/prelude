@@ -14,14 +14,14 @@ export default Alt;
 export const testAlt = <T extends Kind, A, B, C>(
   args: Alt<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    tA2: Ap<T, A>;
-    tA3: Ap<T, A>;
-    fAB1: (a: A) => B;
-    fBC1: (b: B) => C;
+    ta: Ap<T, A>;
+    tb: Ap<T, A>;
+    tc: Ap<T, A>;
+    f: (a: A) => B;
+    g: (b: B) => C;
   },
 ) => {
-  const { alt, map, assertEquals, tA1: a, tA2: b, tA3: c, fAB1: f } = args;
+  const { alt, map, assertEquals, ta: a, tb: b, tc: c, f: f } = args;
 
   testFunctor<T, A, B, C>(args);
 

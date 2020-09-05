@@ -28,20 +28,20 @@ export const testMonad = <T extends Kind, A, B, C>(
     & Monad<T>
     & {
       assertEquals: AssertEquals;
-      a1: A;
-      b1: B;
-      tA1: Ap<T, A>;
-      fAB1: (a: A) => B;
-      fBC1: (b: B) => C;
-      tfAB1: Ap<T, (x: A) => B>;
-      tfBC1: Ap<T, (x: B) => C>;
-      tfCB1: Ap<T, (x: C) => B>;
+      a: A;
+      d: B;
+      ta: Ap<T, A>;
+      f: (a: A) => B;
+      g: (b: B) => C;
+      ff: Ap<T, (x: A) => B>;
+      fg: Ap<T, (x: B) => C>;
+      fk: Ap<T, (x: C) => B>;
     },
 ) => {
   testApplicative<T, A, B, C>(args);
   testChain<T, A, B, C>(args);
 
-  const { chain, of, assertEquals, tfCB1: u, fAB1: f, a1: a } = args;
+  const { chain, of, assertEquals, fk: u, f: f, a: a } = args;
 
   assertEquals(
     chain<A, B>(f, of<A>(a)),

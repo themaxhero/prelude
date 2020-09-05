@@ -15,11 +15,11 @@ export const testFilterable = <T extends Kind, A>(
     assertEquals: AssertEquals;
     a1: A;
     a2: A;
-    fABool1: (a: A) => boolean;
-    fABool2: (a: A) => boolean;
+    cka: (a: A) => boolean;
+    ckb: (a: A) => boolean;
   },
 ) => {
-  const { filter, assertEquals, a1: a, a2: b, fABool1: f, fABool2: g } = args;
+  const { filter, assertEquals, a1: a, a2: b, cka: f, ckb: g } = args;
 
   assertEquals(
     filter<A>((x: A) => f(x) && g(x), a),

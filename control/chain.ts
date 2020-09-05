@@ -26,16 +26,16 @@ export const deriveChain = <T extends Kind>(
 export const testChain = <T extends Kind, A, B, C>(
   args: Chain<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    fAB1: (a: A) => B;
-    fBC1: (b: B) => C;
-    tfBC1: Ap<T, (x: B) => C>;
-    tfAB1: Ap<T, (x: A) => B>;
+    ta: Ap<T, A>;
+    f: (a: A) => B;
+    g: (b: B) => C;
+    ff: Ap<T, (x: A) => B>;
+    fg: Ap<T, (x: B) => C>;
   },
 ) => {
   testApply<T, A, B, C>({ ...args, ...deriveChain(args) });
 
-  const { chain, assertEquals, tA1: u, fAB1: f, fBC1: g } = args;
+  const { chain, assertEquals, ta: u, f: f, g: g } = args;
 
   assertEquals(
     chain(g, chain(f, u)),

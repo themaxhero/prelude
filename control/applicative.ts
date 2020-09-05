@@ -20,19 +20,18 @@ export const deriveApplicative = <T extends Kind>(
 export const testApplicative = <T extends Kind, A, B, C>(
   args: Applicative<T> & {
     assertEquals: AssertEquals;
-    a1: A;
-    b1: B;
-    tA1: Ap<T, A>;
-    fAB1: (c: A) => B;
-    fBC1: (b: B) => C;
-    tfAB1: Ap<T, (x: A) => B>;
-    tfBC1: Ap<T, (x: B) => C>;
+    a: A;
+    d: B;
+    ta: Ap<T, A>;
+    f: (c: A) => B;
+    g: (b: B) => C;
+    ff: Ap<T, (x: A) => B>;
+    fg: Ap<T, (x: B) => C>;
   },
 ) => {
   testApply<T, A, B, C>(args);
 
-  const { of, ap, assertEquals, tfAB1: u, tA1: v, fBC1: f, b1: x, a1: y } =
-    args;
+  const { of, ap, assertEquals, ff: u, ta: v, g: f, d: x, a: y } = args;
 
   assertEquals(
     ap<A, A>(of<(x: A) => A>((x: A): A => x), v),

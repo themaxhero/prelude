@@ -28,14 +28,14 @@ export default ChainRec;
 export const testChainRec = <T extends Kind, A, B, C>(
   args: ChainRec<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    fAB1: (a: A) => B;
-    fBC1: (b: B) => C;
-    tfBC1: Ap<T, (x: B) => C>;
-    tfAB1: Ap<T, (x: A) => B>;
-    fTABN1: (x: Ap<T, A>) => Next<Ap<T, A>>;
-    fTABD1: (x: Ap<T, A>) => Next<Ap<T, B>>;
-    fTABoolean1: (x: Ap<T, A>) => boolean;
+    ta: Ap<T, A>;
+    f: (a: A) => B;
+    g: (b: B) => C;
+    ff: Ap<T, (x: A) => B>;
+    fg: Ap<T, (x: B) => C>;
+    cra: (x: Ap<T, A>) => Next<Ap<T, A>>;
+    crb: (x: Ap<T, A>) => Next<Ap<T, B>>;
+    ckta: (x: Ap<T, A>) => boolean;
   },
 ) => {
   testChain<T, A, B, C>(args);
@@ -45,10 +45,10 @@ export const testChainRec = <T extends Kind, A, B, C>(
     chain,
     map,
     assertEquals,
-    tA1: u,
-    fTABoolean1: p,
-    fTABN1: n,
-    fTABD1: d,
+    ta: u,
+    ckta: p,
+    cra: n,
+    crb: d,
   } = args;
 
   const step = (v: Ap<T, A>) => p(v) ? d(v) : chain<A, B>(step, n(v));

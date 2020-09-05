@@ -17,15 +17,14 @@ export default Profunctor;
 export const testProfunctor = <T extends Kind2, A, B, C, D, E, F>(
   args: Profunctor<T> & {
     assertEquals: AssertEquals;
-    tAB1: Ap2<T, A, B>;
-    fBA1: (b: B) => A;
-    fCB1: (a: C) => B;
-    fED1: (e: E) => D;
-    fFE1: (d: F) => E;
+    tab: Ap2<T, A, B>;
+    j: (b: B) => A;
+    k: (a: C) => B;
+    l: (e: E) => D;
+    m: (d: F) => E;
   },
 ) => {
-  const { promap, assertEquals, tAB1: a, fBA1: f, fCB1: g, fED1: h, fFE1: i } =
-    args;
+  const { promap, assertEquals, tab: a, j: f, k: g, l: h, m: i } = args;
 
   assertEquals(
     promap<C, C, B, B>((x: C): C => x, (x: B): B => x, a),

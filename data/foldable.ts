@@ -14,12 +14,12 @@ export default Foldable;
 export const testFoldable = <T extends Kind, A, B>(
   args: Foldable<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    b1: B;
-    fBAB1: (x: B, y: A) => B;
+    ta: Ap<T, A>;
+    d: B;
+    n: (x: B, y: A) => B;
   },
 ) => {
-  const { assertEquals, reduce, tA1: a, b1: b, fBAB1: f } = args;
+  const { assertEquals, reduce, ta: a, d: b, n: f } = args;
 
   assertEquals(
     reduce(f, b, a),

@@ -26,7 +26,7 @@ const compose = <U extends Kind2, V extends Kind>(
   ): Ap<U, Ap<V, B>> =>
     apA<Ap<V, A>, Ap<V, B>>(
       mapA<Ap<V, (x: A) => B>, (b2: Ap<V, A>) => Ap<V, B>>(
-        (b1: Ap<V, (x: A) => B>) => (b2: Ap<V, A>) => apB<A, B>(b1, b2),
+        (d: Ap<V, (x: A) => B>) => (b2: Ap<V, A>) => apB<A, B>(d, b2),
         a1,
       ),
       a2,
@@ -45,16 +45,16 @@ export const testTraversable = <
 >(
   args: Traversable<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    fAB1: (a: A) => B;
-    fBC1: (b: B) => C;
-    b1: B;
-    fBAB1: (x: B, y: A) => B;
-    tATC1: Ap<A, Ap<T, C>>;
-    aA1: Applicative<A>;
-    aB1: Applicative<B>;
-    fTCBTD1: (x: Ap<T, C>) => Ap<B, Ap<T, D>>;
-    tAC1: Ap<T, Ap<A, C>>;
+    ta: Ap<T, A>;
+    d: B;
+    f: (a: A) => B;
+    g: (b: B) => C;
+    n: (x: B, y: A) => B;
+    u: Ap<A, Ap<T, C>>;
+    v: Ap<T, Ap<A, C>>;
+    aa: Applicative<A>;
+    ab: Applicative<B>;
+    o: (x: Ap<T, C>) => Ap<B, Ap<T, D>>;
   },
 ) => {
   testFunctor<T, A, B, C>(args);
@@ -63,13 +63,12 @@ export const testTraversable = <
   const {
     traverse,
     assertEquals,
-    fTCBTD1: f,
-    fTCBTD1: g,
-    aA1: A,
-    aB1: B,
-    tATC1: u,
-    tA1: a,
-    tAC1: v,
+    o: f,
+    aa: A,
+    ab: B,
+    u: u,
+    ta: a,
+    v: v,
   } = args;
 
   assertEquals(

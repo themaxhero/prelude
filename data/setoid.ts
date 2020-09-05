@@ -9,12 +9,12 @@ export default Setoid;
 export const testSetoid = <A>(
   args: Setoid<A> & {
     assertEquals: AssertEquals;
-    a1: A;
-    a2: A;
-    a3: A;
+    a: A;
+    b: A;
+    c: A;
   },
 ) => {
-  const { equals, assertEquals, a1: a, a2: b, a3: c } = args;
+  const { equals, assertEquals, a: a, b: b, c: c } = args;
 
   assertEquals(
     equals(a, a),

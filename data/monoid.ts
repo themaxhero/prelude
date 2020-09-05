@@ -10,14 +10,14 @@ export default Monoid;
 export const testMonoid = <A>(
   args: Monoid<A> & {
     assertEquals: AssertEquals;
-    a1: A;
-    a2: A;
-    a3: A;
+    a: A;
+    b: A;
+    c: A;
   },
 ) => {
   testSemigroup<A>(args);
 
-  const { concat, empty, assertEquals, a1: a } = args;
+  const { concat, empty, assertEquals, a: a } = args;
 
   assertEquals(
     concat(a, empty()),

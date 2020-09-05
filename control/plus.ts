@@ -11,16 +11,16 @@ export default Plus;
 export const testPlus = <T extends Kind, A, B, C>(
   args: Plus<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    tA2: Ap<T, A>;
-    tA3: Ap<T, A>;
-    fAB1: (a: A) => B;
-    fBC1: (b: B) => C;
+    ta: Ap<T, A>;
+    tb: Ap<T, A>;
+    tc: Ap<T, A>;
+    f: (a: A) => B;
+    g: (b: B) => C;
   },
 ) => {
   testAlt<T, A, B, C>(args);
 
-  const { zero, alt, map, assertEquals, tA1: a, fAB1: f } = args;
+  const { zero, alt, map, assertEquals, ta: a, f: f } = args;
 
   assertEquals(
     alt<A>(a, zero<A>()),

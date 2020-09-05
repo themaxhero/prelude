@@ -13,12 +13,12 @@ export default Contravariant;
 export const testContravariant = <T extends Kind, A, B, C>(
   args: Contravariant<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    fBC1: (B: B) => C;
-    fAB1: (a: A) => B;
+    ta: Ap<T, A>;
+    f: (a: A) => B;
+    g: (B: B) => C;
   },
 ) => {
-  const { contramap, assertEquals, tA1: a, fBC1: f, fAB1: g } = args;
+  const { contramap, assertEquals, ta: a, g: f, f: g } = args;
 
   assertEquals(
     contramap<A, A>((x: A): A => x, a),

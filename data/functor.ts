@@ -13,12 +13,12 @@ export default Functor;
 export const testFunctor = <T extends Kind, A, B, C>(
   args: Functor<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    fAB1: (a: A) => B;
-    fBC1: (b: B) => C;
+    ta: Ap<T, A>;
+    f: (a: A) => B;
+    g: (b: B) => C;
   },
 ) => {
-  const { map, assertEquals, tA1: a, fAB1: g, fBC1: f } = args;
+  const { map, assertEquals, ta: a, f: g, g: f } = args;
 
   assertEquals(
     map<A, A>((x: A) => x, a),

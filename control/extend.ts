@@ -14,21 +14,17 @@ export default Extend;
 export const testExtend = <T extends Kind, A, B, C>(
   args: Extend<T> & {
     assertEquals: AssertEquals;
-    tA1: Ap<T, A>;
-    tA2: Ap<T, A>;
-    fTBC1: (b: Ap<T, B>) => C;
-    fTAB1: (a: Ap<T, A>) => B;
+    ta: Ap<T, A>;
+    tb: Ap<T, A>;
+    ff: (a: Ap<T, A>) => B;
+    fg: (b: Ap<T, B>) => C;
+    f: (a: A) => B;
+    g: (b: B) => C;
   },
 ) => {
-  testFunctor<T, Ap<T, A>, B, C>({
-    map: args.map,
-    assertEquals: args.assertEquals,
-    tA1: args.tA1,
-    fAB1: args.fTAB1,
-    fBC1: args.fTBC1,
-  });
+  testFunctor<T, A, B, C>(args);
 
-  const { extend, assertEquals, fTBC1: f, fTAB1: g, tA2: w } = args;
+  const { extend, assertEquals, fg: f, ff: g, tb: w } = args;
 
   assertEquals(
     extend<A, C>(f, extend<A, B>(g, w)),

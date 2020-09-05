@@ -14,14 +14,14 @@ export default Apply;
 export const testApply = <T extends Kind, A, B, C>(
   args: Apply<T> & {
     assertEquals: AssertEquals;
-    tfBC1: Ap<T, (x: B) => C>;
-    tfAB1: Ap<T, (x: A) => B>;
-    tA1: Ap<T, A>;
-    fAB1: (c: A) => B;
-    fBC1: (b: B) => C;
+    ta: Ap<T, A>;
+    f: (c: A) => B;
+    g: (b: B) => C;
+    ff: Ap<T, (x: A) => B>;
+    fg: Ap<T, (x: B) => C>;
   },
 ) => {
-  const { map, ap, assertEquals, tfBC1: a, tfAB1: u, tA1: v } = args;
+  const { map, ap, assertEquals, fg: a, ff: u, ta: v } = args;
 
   testFunctor<T, A, B, C>(args);
 

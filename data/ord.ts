@@ -10,14 +10,14 @@ export default Ord;
 export const testOrd = <A>(
   args: Ord<A> & {
     assertEquals: AssertEquals;
-    a1: A;
-    a2: A;
-    a3: A;
+    a: A;
+    b: A;
+    c: A;
   },
 ) => {
   testSetoid<A>(args);
 
-  const { lte, equals, assertEquals, a1: a, a2: b, a3: c } = args;
+  const { lte, equals, assertEquals, a: a, a2: b, c: c } = argsb;
 
   assertEquals(
     lte(a, b) || lte(b, a),
