@@ -1,5 +1,4 @@
 import Kind, { Ap } from "../kind.ts";
-import { AssertEquals } from "../test/asserts.ts";
 
 export interface Filterable<T extends Kind> {
   filter: <A>(
@@ -9,33 +8,3 @@ export interface Filterable<T extends Kind> {
 }
 
 export default Filterable;
-
-export const testFilterable = <T extends Kind, A>(
-  args: Filterable<T> & {
-    assertEquals: AssertEquals;
-    a1: A;
-    a2: A;
-    cka: (a: A) => boolean;
-    ckb: (a: A) => boolean;
-  },
-) => {
-  const { filter, assertEquals, a1: a, a2: b, cka: f, ckb: g } = args;
-
-  assertEquals(
-    filter<A>((x: A) => f(x) && g(x), a),
-    filter<A>(g, filter<A>(f, a)),
-    "filterable distributivity identity law",
-  );
-
-  assertEquals(
-    filter<A>((a: A) => true, a),
-    a,
-    "filterable identity law",
-  );
-
-  assertEquals(
-    filter<A>((a: A) => false, a),
-    filter<A>((a: A) => false, b),
-    "filterable annihilation law",
-  );
-};
