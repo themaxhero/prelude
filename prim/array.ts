@@ -95,7 +95,7 @@ export const ap = <A, B>(
 
   for (let i = 0; i < l; i++) {
     const f = tf[i];
-    for (var j = 0; j < k; j++) result[n++] = f(ta[j]);
+    for (let j = 0; j < k; j++) result[n++] = f(ta[j]);
   }
 
   return result;

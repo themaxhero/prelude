@@ -2,7 +2,10 @@ export type Union<T extends Record<string, Def>> = {
   [K in keyof T]: Tag<Extract<K, string>, T[K]>;
 }[keyof T];
 
-export type Tag<T extends string = string, U extends Def = {}> = {
+export type Tag<
+  T extends string = string,
+  U extends Def = Record<string, unknown>,
+> = {
   readonly tag: T;
 } & Readonly<U>;
 
