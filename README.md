@@ -1,19 +1,19 @@
 # prelude
 
-_a base library for functional programming in [deno](http://deno.land)_
+_a base library for functional programming in [deno][deno]_
 
 ## Roadmap
 
 :warning:	WATCH OUT!
 
 - semver won't be enforced until v1.0.0
-- partial application and other tuple related functions won't be available until deno supports [TypeScript 4.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html)
+- partial application and other tuple related functions won't be available until deno supports [TypeScript 4.0][ts4x]
 
 ### Goals
 
-- provide [interfaces](https://github.com/kress95/prelude/blob/master/static-land.ts) corresponding to [static-land spec](https://github.com/rpominov/static-land) type classes and factory functions for implementing its instances
-- provide a good replacement for libraries like [fp-ts](https://github.com/gcanti/fp-ts), [ramda](https://github.com/ramda/ramda), [hkts](https://github.com/pelotom/hkts) and [lodash](https://github.com/lodash/lodash)
-- provide interfaces for additional [purescript](https://github.com/purescript/purescript) based type classes
+- provide [interfaces][static-land] corresponding to [static-land spec][spec] type classes and factory functions for implementing its instances
+- provide a good replacement for libraries like [fp-ts][fp-ts], [ramda][ramda], [hkts][hkts] and [lodash][lodash]
+- provide interfaces for additional [purescript][purs] based type classes
 - provide some basic (primitives, Maybe, Either, etc...) instances for existing type classes
 - support and idioms for deno comes first, but browser and node should be compatible
 
@@ -30,7 +30,7 @@ Is currently a work in progress and not a priority until instances for most prim
 ## Known limitations
 
 - every kind is limited to a single parameter (but kinds can yield kinds)
-- testing kind applications is [weird](https://github.com/kress95/prelude/blob/master/kind_test.ts)
+- testing kind applications is [weird][ktest]
 - a useless expression is required to check type class instances:
 
 ```ts
@@ -60,10 +60,14 @@ Is currently a work in progress and not a priority until instances for most prim
 }));
 ```
 
+## Additions to static-land
+
+- Monads are required to have a [join][mjoin] method, a derive function is available to help with that.
+
 ## Related work
 
-- [encoding higher kinded types in typescript without declaration merging](https://gist.github.com/ENvironmentSet/1662a140f99381bc85fd6be51ecdcbb5)
-- inspired by [hkts](https://github.com/pelotom/hkts), [fp-ts](https://github.com/gcanti/fp-ts) and [purescript](https://github.com/purescript/purescript)
+- [encoding higher kinded types in typescript without declaration merging][lazythis]
+- inspired by [hkts][hkts], [fp-ts][fp-ts] and [purescript][purs]
 
 ## For Developers
 
@@ -73,7 +77,21 @@ If you want to contribute to prelude:
 2. make sure you have deno installed in your path
 3. install the `pre-commit` running:
     - on linux/unix-likes: `./scripts/hook` from the repository root directory
-    - on windows with [cmder](https://cmder.net): `sh scripts/hook` from the repository root directory
+    - on windows with [cmder][term]: `sh scripts/hook` from the repository root directory
 4. run scripts from the repository root directory
 
 Thanks!
+
+[deno]: https://deno.land
+[ts4x]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html
+[static-land]: https://github.com/kress95/prelude/blob/master/static-land.ts
+[spec]: https://github.com/fantasyland/static-land
+[fp-ts]: https://github.com/gcanti/fp-ts
+[ramda]: https://github.com/ramda/ramda
+[hkts]: https://github.com/pelotom/hkts
+[lodash]: https://github.com/lodash/lodash
+[purs]: https://github.com/purescript/purescript
+[ktest]: https://github.com/kress95/prelude/blob/master/kind_test.ts
+[mjoin]: https://github.com/kress95/prelude/blob/master/control/monad.ts#L6
+[lazythis]: https://gist.github.com/ENvironmentSet/1662a140f99381bc85fd6be51ecdcbb5
+[term]: https://cmder.net
