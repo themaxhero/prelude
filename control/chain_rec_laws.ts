@@ -4,13 +4,13 @@ import { testChain } from "./chain_laws.ts";
 import ChainRec, { Next, Done } from "./chain_rec.ts";
 
 export const testChainRec = <T extends Kind, A, B, C>(
-  args: ChainRec<T> & {
+  { chainRec, ckta: p, cra: n, crb: d, ...args }: ChainRec<T> & {
     assertEquals: AssertEquals;
     ta: Ap<T, A>;
-    f: (a: A) => B;
-    g: (b: B) => C;
-    ff: Ap<T, (x: A) => B>;
-    fg: Ap<T, (x: B) => C>;
+    f: (b: B) => C;
+    g: (a: A) => B;
+    ff: Ap<T, (b: B) => C>;
+    fg: Ap<T, (a: A) => B>;
     cra: (x: Ap<T, A>) => Next<Ap<T, A>>;
     crb: (x: Ap<T, A>) => Next<Ap<T, B>>;
     ckta: (x: Ap<T, A>) => boolean;
@@ -19,14 +19,10 @@ export const testChainRec = <T extends Kind, A, B, C>(
   testChain<T, A, B, C>(args);
 
   const {
-    chainRec,
     chain,
     map,
     assertEquals,
     ta: u,
-    ckta: p,
-    cra: n,
-    crb: d,
   } = args;
 
   const step = (v: Ap<T, A>) => p(v) ? d(v) : chain<A, B>(step, n(v));

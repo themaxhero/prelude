@@ -3,15 +3,13 @@ import { AssertEquals } from "../../test/asserts.ts";
 import Contravariant from "./contravariant.ts";
 
 export const testContravariant = <T extends Kind, A, B, C>(
-  args: Contravariant<T> & {
+  { contramap, assertEquals, ta: a, f, g }: Contravariant<T> & {
     assertEquals: AssertEquals;
     ta: Ap<T, A>;
-    f: (a: A) => B;
-    g: (B: B) => C;
+    f: (b: B) => C;
+    g: (a: A) => B;
   },
 ) => {
-  const { contramap, assertEquals, ta: a, g: f, f: g } = args;
-
   assertEquals(
     contramap<A, A>((x: A): A => x, a),
     a,

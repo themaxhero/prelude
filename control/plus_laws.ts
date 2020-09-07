@@ -4,18 +4,18 @@ import { testAlt } from "./alt_laws.ts";
 import Plus from "./plus.ts";
 
 export const testPlus = <T extends Kind, A, B, C>(
-  args: Plus<T> & {
+  { zero, ...args }: Plus<T> & {
     assertEquals: AssertEquals;
     ta: Ap<T, A>;
     tb: Ap<T, A>;
     tc: Ap<T, A>;
-    f: (a: A) => B;
-    g: (b: B) => C;
+    f: (b: B) => C;
+    g: (a: A) => B;
   },
 ) => {
   testAlt<T, A, B, C>(args);
 
-  const { zero, alt, map, assertEquals, ta: a, f } = args;
+  const { alt, map, assertEquals, ta: a, g } = args;
 
   assertEquals(
     alt<A>(a, zero<A>()),
@@ -30,7 +30,7 @@ export const testPlus = <T extends Kind, A, B, C>(
   );
 
   assertEquals(
-    map<A, B>(f, zero<A>()),
+    map<A, B>(g, zero<A>()),
     zero<A>(),
     "plus annihilation law",
   );

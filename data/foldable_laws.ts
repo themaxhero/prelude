@@ -3,15 +3,13 @@ import { AssertEquals } from "../test/asserts.ts";
 import Foldable from "./foldable.ts";
 
 export const testFoldable = <T extends Kind, A, B>(
-  args: Foldable<T> & {
+  { assertEquals, reduce, ta: a, d: b, n: f }: Foldable<T> & {
     assertEquals: AssertEquals;
     ta: Ap<T, A>;
     d: B;
     n: (x: B, y: A) => B;
   },
 ) => {
-  const { assertEquals, reduce, ta: a, d: b, n: f } = args;
-
   assertEquals(
     reduce(f, b, a),
     (<A, B>(f: (x: A, y: B) => A, x: A, u: Ap<T, B>): A =>

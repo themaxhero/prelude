@@ -4,17 +4,17 @@ import { testFunctor } from "./functor_laws.ts";
 import Bifunctor, { deriveBifunctor } from "./bifunctor.ts";
 
 export const testBifunctor = <T extends Kind2, A, B, C, D, E, F>(
-  args: Bifunctor<T> & {
+  { h, i, ...args }: Bifunctor<T> & {
     assertEquals: AssertEquals;
     tad: Ap2<T, A, D>;
-    f: (a: A) => B;
-    g: (b: B) => C;
-    h: (d: D) => E;
-    i: (e: E) => F;
+    f: (b: B) => C;
+    g: (a: A) => B;
+    h: (e: E) => F;
+    i: (d: D) => E;
   },
 ) => {
   const { first, second } = deriveBifunctor<T>(args);
-  const { assertEquals, bimap, tad: a, g: f, f: g, i: h, h: i } = args;
+  const { bimap, assertEquals, tad: a, f, g } = args;
 
   testFunctor<Ap<Flip<T>, D>, A, B, C>({
     ...args,

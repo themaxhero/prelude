@@ -34,12 +34,12 @@ export const testTraversable = <
   C,
   D,
 >(
-  args: Traversable<T> & {
+  { traverse, o: f, aa: A, ab: B, u: u, v: v, ...args }: Traversable<T> & {
     assertEquals: AssertEquals;
     ta: Ap<T, A>;
     d: B;
-    f: (a: A) => B;
-    g: (b: B) => C;
+    f: (b: B) => C;
+    g: (a: A) => B;
     n: (x: B, y: A) => B;
     u: Ap<A, Ap<T, C>>;
     v: Ap<T, Ap<A, C>>;
@@ -52,14 +52,8 @@ export const testTraversable = <
   testFoldable<T, A, B>(args);
 
   const {
-    traverse,
     assertEquals,
-    o: f,
-    aa: A,
-    ab: B,
-    u: u,
     ta: a,
-    v: v,
   } = args;
 
   assertEquals(

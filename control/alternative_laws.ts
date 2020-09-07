@@ -12,16 +12,16 @@ export const testAlternative = <T extends Kind, A, B, C>(
     ta: Ap<T, A>;
     tb: Ap<T, A>;
     tc: Ap<T, A>;
-    f: (c: A) => B;
-    g: (b: B) => C;
-    ff: Ap<T, (x: A) => B>;
-    fg: Ap<T, (x: B) => C>;
+    f: (b: B) => C;
+    g: (a: A) => B;
+    ff: Ap<T, (b: B) => C>;
+    fg: Ap<T, (a: A) => B>;
   },
 ) => {
   testApplicative<T, A, B, C>(args);
   testPlus<T, A, B, C>(args);
 
-  const { ap, alt, zero, assertEquals, ta: a, tb: b, tc: c } = args;
+  const { ap, zero, alt, assertEquals, ta: a, tb: b, tc: c } = args;
 
   assertEquals(
     ap<A, A>(alt<A>(a, b), c),

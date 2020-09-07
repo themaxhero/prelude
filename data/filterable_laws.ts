@@ -3,7 +3,7 @@ import { AssertEquals } from "../test/asserts.ts";
 import Filterable from "./filterable.ts";
 
 export const testFilterable = <T extends Kind, A>(
-  args: Filterable<T> & {
+  { filter, assertEquals, a, b, cka: f, ckb: g }: Filterable<T> & {
     assertEquals: AssertEquals;
     a: A;
     b: A;
@@ -11,8 +11,6 @@ export const testFilterable = <T extends Kind, A>(
     ckb: (a: A) => boolean;
   },
 ) => {
-  const { filter, assertEquals, a, b, cka: f, ckb: g } = args;
-
   assertEquals(
     filter<A>((x: A) => f(x) && g(x), a),
     filter<A>(g, filter<A>(f, a)),

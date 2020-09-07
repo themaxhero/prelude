@@ -2,15 +2,13 @@ import { AssertEquals } from "../test/asserts.ts";
 import Setoid from "./setoid.ts";
 
 export const testSetoid = <A>(
-  args: Setoid<A> & {
+  { equals, assertEquals, a, b, c }: Setoid<A> & {
     assertEquals: AssertEquals;
     a: A;
     b: A;
     c: A;
   },
 ) => {
-  const { equals, assertEquals, a, b, c } = args;
-
   assertEquals(
     equals(a, a),
     true,

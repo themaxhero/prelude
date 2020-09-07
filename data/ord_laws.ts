@@ -3,7 +3,7 @@ import { testSetoid } from "./setoid_laws.ts";
 import Ord from "./ord.ts";
 
 export const testOrd = <A>(
-  args: Ord<A> & {
+  { lte, ...args }: Ord<A> & {
     assertEquals: AssertEquals;
     a: A;
     b: A;
@@ -12,7 +12,7 @@ export const testOrd = <A>(
 ) => {
   testSetoid<A>(args);
 
-  const { lte, equals, assertEquals, a, b, c } = args;
+  const { equals, assertEquals, a, b, c } = args;
 
   assertEquals(
     lte(a, b) || lte(b, a),

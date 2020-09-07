@@ -3,7 +3,7 @@ import { testSemigroup } from "./semigroup_laws.ts";
 import Monoid from "./monoid.ts";
 
 export const testMonoid = <A>(
-  args: Monoid<A> & {
+  { empty, ...args }: Monoid<A> & {
     assertEquals: AssertEquals;
     a: A;
     b: A;
@@ -12,7 +12,7 @@ export const testMonoid = <A>(
 ) => {
   testSemigroup<A>(args);
 
-  const { concat, empty, assertEquals, a } = args;
+  const { concat, assertEquals, a } = args;
 
   assertEquals(
     concat(a, empty()),

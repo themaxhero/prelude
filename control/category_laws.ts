@@ -4,11 +4,16 @@ import { testSemigroupoid } from "../control/semigroupoid_laws.ts";
 import Category from "./category.ts";
 
 export const testCategory = <T extends Kind2, A, B, C>(
-  args: Category<T> & { assertEquals: AssertEquals; a: A; b: B; c: C },
+  { id, ...args }: Category<T> & {
+    assertEquals: AssertEquals;
+    a: A;
+    b: B;
+    c: C;
+  },
 ) => {
   testSemigroupoid<T, A, B, C>(args);
 
-  const { id, compose, assertEquals, a } = args;
+  const { compose, assertEquals, a } = args;
 
   assertEquals(
     compose<A, A, A>(a, id<A, A>()),

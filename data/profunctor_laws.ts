@@ -3,7 +3,7 @@ import { AssertEquals } from "../test/asserts.ts";
 import Profunctor from "./profunctor.ts";
 
 export const testProfunctor = <T extends Kind2, A, B, C, D, E, F>(
-  args: Profunctor<T> & {
+  { promap, assertEquals, tab: a, j: f, k: g, l: h, m: i }: Profunctor<T> & {
     assertEquals: AssertEquals;
     tab: Ap2<T, A, B>;
     j: (b: B) => A;
@@ -12,8 +12,6 @@ export const testProfunctor = <T extends Kind2, A, B, C, D, E, F>(
     m: (d: F) => E;
   },
 ) => {
-  const { promap, assertEquals, tab: a, j: f, k: g, l: h, m: i } = args;
-
   assertEquals(
     promap<C, C, B, B>((x: C): C => x, (x: B): B => x, a),
     a,

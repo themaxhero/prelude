@@ -4,20 +4,20 @@ import { testApply } from "./apply_laws.ts";
 import Applicative from "./applicative.ts";
 
 export const testApplicative = <T extends Kind, A, B, C>(
-  args: Applicative<T> & {
+  { of, a: y, d: x, ...args }: Applicative<T> & {
     assertEquals: AssertEquals;
     a: A;
     d: B;
     ta: Ap<T, A>;
-    f: (c: A) => B;
-    g: (b: B) => C;
-    ff: Ap<T, (x: A) => B>;
-    fg: Ap<T, (x: B) => C>;
+    f: (b: B) => C;
+    g: (a: A) => B;
+    ff: Ap<T, (b: B) => C>;
+    fg: Ap<T, (a: A) => B>;
   },
 ) => {
   testApply<T, A, B, C>(args);
 
-  const { of, ap, assertEquals, ff: u, ta: v, g: f, d: x, a: y } = args;
+  const { ap, assertEquals, ta: v, f, fg: u } = args;
 
   assertEquals(
     ap<A, A>(of<(x: A) => A>((x: A): A => x), v),

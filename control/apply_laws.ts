@@ -4,18 +4,18 @@ import { testFunctor } from "../data/functor_laws.ts";
 import Apply from "./apply.ts";
 
 export const testApply = <T extends Kind, A, B, C>(
-  args: Apply<T> & {
+  { ap, ff: a, fg: u, ...args }: Apply<T> & {
     assertEquals: AssertEquals;
     ta: Ap<T, A>;
-    f: (c: A) => B;
-    g: (b: B) => C;
-    ff: Ap<T, (x: A) => B>;
-    fg: Ap<T, (x: B) => C>;
+    f: (b: B) => C;
+    g: (a: A) => B;
+    ff: Ap<T, (b: B) => C>;
+    fg: Ap<T, (a: A) => B>;
   },
 ) => {
-  const { map, ap, assertEquals, fg: a, ff: u, ta: v } = args;
-
   testFunctor<T, A, B, C>(args);
+
+  const { map, assertEquals, ta: v } = args;
 
   assertEquals(
     ap<A, C>(

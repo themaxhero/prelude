@@ -3,7 +3,7 @@ import { testMonoid } from "./monoid_laws.ts";
 import Group from "./group.ts";
 
 export const testGroup = <A>(
-  args: Group<A> & {
+  { invert, ...args }: Group<A> & {
     assertEquals: AssertEquals;
     a: A;
     b: A;
@@ -12,7 +12,7 @@ export const testGroup = <A>(
 ) => {
   testMonoid<A>(args);
 
-  const { invert, empty, concat, assertEquals, a } = args;
+  const { empty, concat, assertEquals, a } = args;
 
   assertEquals(
     concat(a, invert(a)),

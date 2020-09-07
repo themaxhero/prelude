@@ -5,28 +5,28 @@ import { testChain } from "./chain_laws.ts";
 import Monad from "./monad.ts";
 
 export const testMonad = <T extends Kind, A, B, C>(
-  args:
+  { fh: u, ...args }:
     & Monad<T>
     & {
       assertEquals: AssertEquals;
       a: A;
       d: B;
       ta: Ap<T, A>;
-      f: (a: A) => B;
-      g: (b: B) => C;
-      ff: Ap<T, (x: A) => B>;
-      fg: Ap<T, (x: B) => C>;
-      fk: Ap<T, (x: C) => B>;
+      f: (b: B) => C;
+      g: (a: A) => B;
+      ff: Ap<T, (b: B) => C>;
+      fg: Ap<T, (a: A) => B>;
+      fh: Ap<T, (x: C) => B>;
     },
 ) => {
   testApplicative<T, A, B, C>(args);
   testChain<T, A, B, C>(args);
 
-  const { chain, of, assertEquals, fk: u, f, a } = args;
+  const { of, chain, assertEquals, g, a } = args;
 
   assertEquals(
-    chain<A, B>(f, of<A>(a)),
-    f(a),
+    chain<A, B>(g, of<A>(a)),
+    g(a),
     "monad left identity law",
   );
 
@@ -35,4 +35,6 @@ export const testMonad = <T extends Kind, A, B, C>(
     u,
     "monad right identity law",
   );
+
+  // TODO: test join
 };
