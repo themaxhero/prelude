@@ -38,3 +38,18 @@ export const testMonad = <T extends Kind, A, B, C>(
 
   // TODO: test join
 };
+
+interface Framework {
+  test: (msg: string, fn: () => void) => void,
+  assertEquals: AssertEquals;
+}
+
+export const monadLeftIdentity = ({ test, assertEquals }: Framework) {
+  test("monad left identity law", () => {
+    assertEquals()
+  })
+}
+
+export const monadRightIdentity = {
+
+}
